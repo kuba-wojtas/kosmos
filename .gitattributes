@@ -1,0 +1,11 @@
+# Repo trzyma LF niezależnie od systemu, na którym się pracuje.
+# Bez tego commity z Windowsa przychodzą z CRLF i diffy pokazują cały plik.
+* text=auto eol=lf
+
+# Binaria zostawiamy w spokoju.
+*.woff2 binary
+*.woff binary
+*.ttf binary
+*.png binary
+*.jpg binary
+*.ico binary

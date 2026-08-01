@@ -1,0 +1,30 @@
+# Zależności
+node_modules/
+.pnp
+.pnp.*
+
+# Next.js
+.next/
+out/
+build/
+next-env.d.ts
+
+# Środowisko
+.env
+.env.local
+.env*.local
+
+# Testy i pokrycie
+coverage/
+
+# Narzędzia i systemowe
+.vercel
+*.tsbuildinfo
+.DS_Store
+Thumbs.db
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Makiety z sesji projektowania, lokalne i tymczasowe
+.superpowers/
