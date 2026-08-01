@@ -8,9 +8,11 @@ Projekt rekrutacyjny/testowy, ma działać solidnie i czytelnie, nie ma być
 rozbudowanym produktem.
 
 ## Stack
-- Next.js 15, App Router, TypeScript strict
-- PostgreSQL + Prisma
-- Auth.js (NextAuth v5), Credentials Provider, hasła hashowane bcryptem
+- Next.js 16, App Router, TypeScript strict
+- PostgreSQL + Prisma 7 (generator `prisma-client`, klient w `src/generated/prisma`,
+  NIE importuj z `@prisma/client`)
+- Auth.js (NextAuth v5 beta), Credentials Provider, hasła hashowane bcryptem
+- Zod 4: błędy pól przez `z.flattenError(err).fieldErrors`, nie `err.flatten()`
 - Zod (walidacja) + react-hook-form
 - Tailwind CSS
 - Vitest (testy jednostkowe logiki uprawnień)

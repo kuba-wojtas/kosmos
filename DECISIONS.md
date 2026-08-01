@@ -118,7 +118,32 @@ zastępczym glifie.
 (najbliżej klimatu strony, przegrał z kontrastem duetu), Satoshi (dobry, ale
 ostatnio jest w co drugim portfolio).
 
-## 7. Architektura
+## 7. Wersje: Next 16, Prisma 7, Zod 4, Auth.js v5 beta
+
+Przed pisaniem planu sprawdziłem realne wersje w rejestrze npm zamiast opierać
+się na tym, co pamiętam. Wyszły trzy rozjazdy z pierwotnymi założeniami.
+
+**Next.js 16 zamiast 15.** 16.2.12 jest stabilny. Używamy zwykłego App Routera
+bez egzotycznych API, więc ryzyko jest minimalne, a projekt nie wygląda na
+wersję wstecz.
+
+**Auth.js v5 mimo bety.** Tag `latest` dla `next-auth` to wciąż v4, która nie
+obsługuje App Routera tak, jak potrzebujemy. v5 siedzi w becie od ponad dwóch
+lat, ale to de facto standard i połowa ekosystemu jest na niej produkcyjnie.
+`next-auth@beta` deklaruje wsparcie dla Next 16 w peer dependencies, sprawdzone.
+Adapter Prismy odpada i tak, bo trzymamy sesje w JWT, a przy okazji dobrze się
+składa: `@auth/prisma-adapter` ma peer dependency ograniczone do Prismy 6.
+
+**Prisma 7 ma inny generator.** `prisma-client-js` jest oznaczony jako
+przestarzały, nowy generator to `prisma-client` z obowiązkowym `output`. Klient
+ląduje w `src/generated/prisma` i importuje się stamtąd, nie z `@prisma/client`.
+Kod pisany z pamięci wyłożyłby się na pierwszym imporcie.
+
+**Zod 4 zmienił obsługę błędów.** `err.flatten()` ustąpiło miejsca
+`z.flattenError(err)`, które zwraca ten sam kształt `{ formErrors, fieldErrors }`.
+Spec został poprawiony.
+
+## 8. Architektura
 
 - **Server Actions zamiast API routes.** Nie ma tu nic, co wymaga endpointu.
   Kolejność w każdej mutacji jest ta sama: walidacja Zod, sprawdzenie uprawnień,
