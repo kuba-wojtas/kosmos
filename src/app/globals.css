@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+/* Jedyne miejsce w projekcie z wartosciami hex. Opis w STYLE_GUIDE.md. */
+@theme {
+  --font-sans: var(--font-switzer), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-cabinet), ui-sans-serif, system-ui, sans-serif;
+
+  --color-bg: #08070c;
+  --color-surface: #121120;
+  --color-raised: #1a1930;
+  --color-line: #262541;
+  --color-field: #5d5a96;
+  --color-fg: #ececf4;
+  --color-muted: #9a99b5;
+  --color-brand: #6165b2;
+  --color-brand-hover: #4e518e;
+  --color-ring: #aeadff;
+
+  /* Status to kategoria: trzy rozne barwy, tekst na przygaszonym tle. */
+  --color-status-new: #aeadff;
+  --color-status-new-bg: #1b1a38;
+  --color-status-progress: #e8b04b;
+  --color-status-progress-bg: #241e10;
+  --color-status-resolved: #4fc98c;
+  --color-status-resolved-bg: #10241a;
+
+  /* Priorytet to skala: jedna rodzina o rosnacym natezeniu. */
+  --color-priority-low: #7e7c99;
+  --color-priority-medium: #e0844f;
+  --color-priority-high: #e8484a;
+
+  --color-danger: #ff9a96;
+  --color-danger-bg: #1e1113;
+  --color-danger-line: #4a1f22;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-fg);
+}
+
+/* Fokus musi byc widoczny wszedzie. Nigdy outline:none bez zamiennika. */
+:focus-visible {
+  outline: 2px solid var(--color-ring);
+  outline-offset: 2px;
+}
