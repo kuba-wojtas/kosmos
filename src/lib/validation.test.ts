@@ -95,4 +95,36 @@ describe("filtersSchema", () => {
     expect(filtersSchema.parse({ search: "  drukarka  " }).search).toBe("drukarka");
     expect(filtersSchema.parse({ search: "   " }).search).toBeUndefined();
   });
+
+  it("z tablicy powtorzonego parametru bierze pierwszy element", () => {
+    const result = filtersSchema.parse({ status: ["new", "old"] });
+    expect(result.status).toBe("NEW");
+  });
+
+  it("dla wartosci innych niz string i tablica stringow zwraca undefined", () => {
+    expect(filtersSchema.parse({ status: null }).status).toBeUndefined();
+    expect(filtersSchema.parse({ status: 42 }).status).toBeUndefined();
+    expect(filtersSchema.parse({ status: {} }).status).toBeUndefined();
+    expect(filtersSchema.parse({ status: [] }).status).toBeUndefined();
+  });
+
+  it("dla wyszukiwania w tablicy bierze pierwszy element", () => {
+    expect(filtersSchema.parse({ search: ["drukarka", "inne"] }).search).toBe("drukarka");
+  });
+
+  it("nigdy nie rzuca wyjatku, niezaleznie od ksztaltu wartosci parametrow", () => {
+    const hostile: Record<string, unknown>[] = [
+      {},
+      { status: ["new", "old"], priority: ["high", "low"], search: ["a", "b"] },
+      { status: null, priority: null, search: null },
+      { status: 42, priority: true, search: {} },
+      { status: {}, priority: [], search: [] },
+      { status: undefined, priority: undefined, search: undefined },
+      { status: "smiec", priority: "!!!", search: "   " },
+    ];
+
+    for (const input of hostile) {
+      expect(() => filtersSchema.parse(input)).not.toThrow();
+    }
+  });
 });

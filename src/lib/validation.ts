@@ -46,28 +46,32 @@ export const statusChangeSchema = z.object({
   status: z.enum(["NEW", "IN_PROGRESS", "RESOLVED"], { error: "Nieznany status." }),
 });
 
+// Next.js oddaje searchParams jako string | string[] | undefined (powtorzony
+// klucz w adresie daje tablice), a reczne pogrzebanie w adresie moze wpisac
+// cokolwiek. Normalizujemy kazda wartosc do string | undefined, zanim
+// zadziala reszta logiki, zeby filtersSchema nigdy nie rzucalo wyjatku.
+const paramToString = z.unknown().optional().transform((value): string | undefined => {
+  const candidate = Array.isArray(value) ? value[0] : value;
+  return typeof candidate === "string" ? candidate : undefined;
+});
+
 // Parametry z adresu moga byc czymkolwiek, wiec niepoprawna wartosc jest
 // pomijana zamiast wywalac strone. W adresie enum zapisujemy malymi literami
 // (?status=new), zeby link byl czytelny, ale bez osobnej warstwy tlumaczen.
 const enumFromParam = <T extends string>(allowed: readonly T[]) =>
-  z
-    .string()
-    .optional()
-    .transform((v) => {
-      if (!v) return undefined;
-      const upper = v.toUpperCase();
-      return (allowed as readonly string[]).includes(upper) ? (upper as T) : undefined;
-    });
+  paramToString.transform((value): T | undefined => {
+    if (!value) return undefined;
+    const upper = value.toUpperCase();
+    return (allowed as readonly string[]).includes(upper) ? (upper as T) : undefined;
+  });
 
 export const filtersSchema = z.object({
   status: enumFromParam(["NEW", "IN_PROGRESS", "RESOLVED"] as const),
   priority: enumFromParam(["LOW", "MEDIUM", "HIGH"] as const),
-  search: z
-    .string()
-    .trim()
-    .max(120)
-    .optional()
-    .transform((v) => (v ? v : undefined)),
+  search: paramToString.transform((value) => {
+    const trimmed = value?.trim().slice(0, 120);
+    return trimmed ? trimmed : undefined;
+  }),
 });
 
 export type NewTicket = z.infer<typeof newTicketSchema>;
