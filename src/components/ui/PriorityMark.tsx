@@ -18,7 +18,7 @@ export function PriorityMark({ priority }: { priority: Priority }) {
   const { kolor, wysokosc } = style[priority];
   return (
     <span className={`inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider ${kolor}`}>
-      <span aria-hidden className={`w-[3px] rounded-sm bg-current ${wysokosc}`} />
+      <span aria-hidden className={`w-1 rounded-sm bg-current ${wysokosc}`} />
       {etykiety[priority]}
     </span>
   );
