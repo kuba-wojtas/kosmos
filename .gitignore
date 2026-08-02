@@ -28,3 +28,13 @@ yarn-error.log*
 
 # Makiety z sesji projektowania, lokalne i tymczasowe
 .superpowers/
+
+# Klient Prismy jest generowany przy kazdym instalowaniu zaleznosci.
+src/generated/
+
+# Znacznik lokalny tworzony przez CLI Prismy przy wykryciu Neon w .env.
+.neon
+
+# Artefakty narzedziowe agentow (Neon CLI), nie sa czescia projektu.
+.agents/
+skills-lock.json

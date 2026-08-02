@@ -1,0 +1,69 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+// Prisma 7 usunela url i directUrl ze schematu. Adres bazy dla CLI siedzi
+// w prisma.config.ts, a dla aplikacji w driver adapterze w src/lib/prisma.ts.
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum Status {
+  NEW
+  IN_PROGRESS
+  RESOLVED
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+model User {
+  id            String         @id @default(cuid())
+  email         String         @unique
+  passwordHash  String
+  name          String
+  role          Role           @default(USER)
+  createdAt     DateTime       @default(now())
+  tickets       Ticket[]
+  statusChanges StatusChange[]
+}
+
+model Ticket {
+  id          String         @id @default(cuid())
+  number      Int            @unique @default(autoincrement())
+  title       String
+  description String
+  status      Status         @default(NEW)
+  priority    Priority
+  authorId    String
+  author      User           @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  history     StatusChange[]
+
+  @@index([authorId])
+  @@index([status])
+  @@index([createdAt])
+}
+
+model StatusChange {
+  id          String   @id @default(cuid())
+  ticketId    String
+  ticket      Ticket   @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  from        Status
+  to          Status
+  changedById String
+  changedBy   User     @relation(fields: [changedById], references: [id], onDelete: Cascade)
+  changedAt   DateTime @default(now())
+
+  @@index([ticketId])
+}
