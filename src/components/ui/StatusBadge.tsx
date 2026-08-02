@@ -1,4 +1,5 @@
-type Status = "NEW" | "IN_PROGRESS" | "RESOLVED";
+import type { Status } from "@/generated/prisma/client";
+import { STATUS_LABELS } from "@/lib/labels";
 
 const style: Record<Status, string> = {
   NEW: "bg-status-new-bg text-status-new",
@@ -6,16 +7,10 @@ const style: Record<Status, string> = {
   RESOLVED: "bg-status-resolved-bg text-status-resolved",
 };
 
-const labels: Record<Status, string> = {
-  NEW: "Nowe",
-  IN_PROGRESS: "W trakcie",
-  RESOLVED: "Rozwiązane",
-};
-
 export function StatusBadge({ status }: { status: Status }) {
   return (
     <span className={`inline-block rounded-md px-2.5 py-1 text-xs font-semibold ${style[status]}`}>
-      {labels[status]}
+      {STATUS_LABELS[status]}
     </span>
   );
 }
