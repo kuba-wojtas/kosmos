@@ -7,13 +7,13 @@ type Props = {
   children: ReactNode;
 };
 
-const stan = {
-  nieaktywny: "border-line bg-surface text-muted",
-  aktywny: "border-brand bg-[--color-status-new-bg] text-fg",
+const stateClasses = {
+  inactive: "border-line bg-surface text-muted",
+  active: "border-brand bg-[--color-status-new-bg] text-fg",
 };
 
 export function Chip({ href, active = false, children }: Props) {
-  const className = `rounded-full border px-3 py-1.5 text-xs ${active ? stan.aktywny : stan.nieaktywny}`;
+  const className = `rounded-full border px-3 py-1.5 text-xs ${active ? stateClasses.active : stateClasses.inactive}`;
 
   if (href) {
     return (

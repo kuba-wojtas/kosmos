@@ -6,7 +6,7 @@ const style: Record<Status, string> = {
   RESOLVED: "bg-status-resolved-bg text-status-resolved",
 };
 
-const etykiety: Record<Status, string> = {
+const labels: Record<Status, string> = {
   NEW: "Nowe",
   IN_PROGRESS: "W trakcie",
   RESOLVED: "Rozwiązane",
@@ -15,7 +15,7 @@ const etykiety: Record<Status, string> = {
 export function StatusBadge({ status }: { status: Status }) {
   return (
     <span className={`inline-block rounded-md px-2.5 py-1 text-xs font-semibold ${style[status]}`}>
-      {etykiety[status]}
+      {labels[status]}
     </span>
   );
 }
