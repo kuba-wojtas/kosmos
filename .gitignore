@@ -38,3 +38,6 @@ src/generated/
 # Artefakty narzedziowe agentow (Neon CLI), nie sa czescia projektu.
 .agents/
 skills-lock.json
+
+# Artefakty sesji projektowania i planowania, nie sa czescia projektu.
+docs/superpowers/

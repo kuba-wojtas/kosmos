@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
@@ -15,6 +16,7 @@ type RegisterData = z.infer<typeof registerSchema>;
 
 export function RegisterForm() {
   const router = useRouter();
+  const [formError, setFormError] = useState<string | null>(null);
 
   const {
     register,
@@ -24,11 +26,19 @@ export function RegisterForm() {
   } = useForm<RegisterData>({ resolver: zodResolver(registerSchema) });
 
   async function submit(data: RegisterData) {
+    setFormError(null);
     const result = await registerUser(data);
 
     if (!result.ok) {
-      for (const [field, messages] of Object.entries(result.fieldErrors ?? {})) {
-        setError(field as keyof RegisterData, { type: "server", message: messages[0] });
+      // Bledy walidacji pol trafiaja pod konkretne pole, reszta (np. blad
+      // infrastruktury) idzie do banera, bo nie ma pola, przy ktorym ja pokazac.
+      const fieldEntries = Object.entries(result.fieldErrors ?? {});
+      if (fieldEntries.length > 0) {
+        for (const [field, messages] of fieldEntries) {
+          setError(field as keyof RegisterData, { type: "server", message: messages[0] });
+        }
+      } else {
+        setFormError(result.error);
       }
       return;
     }
@@ -52,11 +62,17 @@ export function RegisterForm() {
       <Input id="email" type="email" autoComplete="email" {...register("email")} />
       <FieldError>{errors.email?.message}</FieldError>
 
-      <label className="mb-1.5 mt-4 block text-xs font-semibold text-muted" htmlFor="haslo">
+      <label className="mb-1.5 mt-4 block text-xs font-semibold text-muted" htmlFor="password">
         Hasło
       </label>
-      <Input id="haslo" type="password" autoComplete="new-password" {...register("password")} />
+      <Input id="password" type="password" autoComplete="new-password" {...register("password")} />
       <FieldError>{errors.password?.message}</FieldError>
+
+      {formError && (
+        <p className="mt-4 rounded-lg border border-danger-line bg-danger-bg px-3 py-2.5 text-sm text-danger">
+          {formError}
+        </p>
+      )}
 
       <Button type="submit" disabled={isSubmitting} className="mt-5 w-full">
         {isSubmitting ? "Tworzenie konta..." : "Zarejestruj się"}

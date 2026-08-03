@@ -315,9 +315,12 @@ async function main() {
   // Postgres nie przesuwa przy tym sekwencji, wiec kolejny insert bez podanego
   // numeru (docelowa akcja createTicket) mogliby uderzyc w ten sam numer.
   // Ustawiamy sekwencje na maksimum, zeby dalsze automatyczne numery byly bezpieczne.
-  await prisma.$queryRawUnsafe(
-    `SELECT setval(pg_get_serial_sequence('"Ticket"', 'number'), (SELECT COALESCE(MAX(number), 1) FROM "Ticket"))`,
-  );
+  await prisma.$executeRaw`
+    SELECT setval(
+      pg_get_serial_sequence('"Ticket"', 'number'),
+      (SELECT COALESCE(MAX(number), 1) FROM "Ticket")
+    )
+  `;
 
   const statusCounts = await prisma.ticket.groupBy({ by: ["status"], _count: true });
 

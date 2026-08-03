@@ -1,5 +1,7 @@
 "use client";
 
+import { Button } from "@/components/ui/Button";
+
 // Trescia bledu celowo nie pokazujemy: komunikaty wyjatkow potrafia zawierac
 // fragmenty zapytan i nazwy kolumn.
 export default function Error({ reset }: { error: Error; reset: () => void }) {
@@ -12,12 +14,9 @@ export default function Error({ reset }: { error: Error; reset: () => void }) {
         <p className="mt-3 text-muted">
           Nie udało się wczytać tej strony. Spróbuj jeszcze raz.
         </p>
-        <button
-          onClick={reset}
-          className="mt-6 rounded-lg bg-brand px-4 py-2.5 text-sm font-semibold text-white hover:bg-brand-hover"
-        >
+        <Button onClick={reset} className="mt-6">
           Spróbuj ponownie
-        </button>
+        </Button>
       </div>
     </main>
   );

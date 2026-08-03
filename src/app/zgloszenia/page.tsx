@@ -1,10 +1,10 @@
-import Link from "next/link";
 import { requireSession } from "@/lib/session";
 import { getStatusCounts, getTickets } from "@/lib/tickets";
 import { isAdmin } from "@/lib/permissions";
 import { filtersSchema } from "@/lib/validation";
 import { TicketList } from "@/components/TicketList";
 import { TicketFilters } from "@/components/TicketFilters";
+import { Button } from "@/components/ui/Button";
 
 type Props = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
@@ -33,12 +33,7 @@ export default async function ZgloszeniaPage({ searchParams }: Props) {
               : "Zgłoszenia, które utworzyłeś, wraz z ich aktualnym statusem."}
           </p>
         </div>
-        <Link
-          href="/zgloszenia/nowe"
-          className="rounded-lg bg-brand px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-hover"
-        >
-          Nowe zgłoszenie
-        </Link>
+        <Button href="/zgloszenia/nowe">Nowe zgłoszenie</Button>
       </div>
 
       <div className="mt-6">

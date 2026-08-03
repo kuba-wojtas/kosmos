@@ -13,13 +13,6 @@ declare module "next-auth" {
   }
 }
 
-declare module "next-auth/jwt" {
-  interface JWT {
-    id: string;
-    role: Role;
-  }
-}
-
 // next-auth/jwt.d.ts re-exportuje typ JWT z @auth/core/jwt zamiast go
 // deklarowac lokalnie, wiec rozszerzenie samego "next-auth/jwt" nie laczy sie
 // z typem uzywanym faktycznie w sygnaturach callbackow. Trzeba rozszerzyc zrodlo.

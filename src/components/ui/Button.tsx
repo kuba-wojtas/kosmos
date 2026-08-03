@@ -1,19 +1,36 @@
-import type { ButtonHTMLAttributes } from "react";
+import type { AnchorHTMLAttributes, ButtonHTMLAttributes } from "react";
+import Link from "next/link";
 
-type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+  href?: undefined;
   variant?: "primary" | "ghost";
 };
+
+type LinkProps = Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "href"> & {
+  href: string;
+  variant?: "primary" | "ghost";
+};
+
+type Props = ButtonProps | LinkProps;
 
 const variants = {
   primary: "bg-brand text-white hover:bg-brand-hover",
   ghost: "border border-field text-fg hover:bg-raised",
 };
 
-export function Button({ variant = "primary", className = "", ...props }: Props) {
-  return (
-    <button
-      {...props}
-      className={`rounded-lg px-4 py-2.5 text-sm font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${variants[variant]} ${className}`}
-    />
-  );
+const styleFor = (variant: "primary" | "ghost", className: string) =>
+  `rounded-lg px-4 py-2.5 text-sm font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${variants[variant]} ${className}`;
+
+// Z href renderuje next/link, bez href zwykly przycisk: te same klasy w obu
+// wariantach, zeby link "Nowe zgloszenie" i przycisk "Zapisz" wygladaly identycznie.
+// Zwezenie idzie po calym obiekcie props, bo po destrukturyzacji href przestaje
+// dyskryminowac unie i TypeScript nie wie, ktora galaz wybrac.
+export function Button(props: Props) {
+  if (props.href !== undefined) {
+    const { href, variant = "primary", className = "", ...rest } = props;
+    return <Link href={href} className={styleFor(variant, className)} {...rest} />;
+  }
+
+  const { variant = "primary", className = "", ...rest } = props;
+  return <button {...rest} className={styleFor(variant, className)} />;
 }

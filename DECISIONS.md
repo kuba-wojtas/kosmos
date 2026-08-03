@@ -175,3 +175,33 @@ Spec został poprawiony.
   przydatny przy dalszej pracy nad interfejsem. Nie jest martwym kodem
   w sensie "nieużywany import", tylko route'em bez wejścia z nawigacji, więc
   świadomie go nie usuwam.
+
+## 12. Middleware nie moze importowac pelnej konfiguracji Auth.js
+
+Middleware w Next.js dziala w Edge Runtime, ktore nie ma dostepu do modulow
+Node'a. Import `@/lib/auth` wciaga za soba Prisme i bcrypta, wiec brama sesji
+zamiast przekierowywac na logowanie zwracala 500. Konfiguracja jest rozdzielona
+na dwa pliki: `auth.config.ts` trzyma czesc bezpieczna dla Edge, czyli callbacki
+`jwt` i `session`, pusta tablice providerow i wylacznie import typu, a `auth.ts`
+dokłada Credentials z bcryptem i zapytaniem do bazy. Middleware importuje tylko
+ten pierwszy i weryfikuje podpisany token, co nie wymaga ani bazy, ani hashowania.
+Sprawdzone grepem po zbudowanym bundlu edge: nie ma w nim ani Prismy, ani bcrypta.
+
+## 13. Walidacja `returnTo`: parsowanie adresu, nie dopasowanie wzorca
+
+Po zalogowaniu wracamy tam, skad uzytkownik przyszedl, a ta sciezka siedzi
+w parametrze `returnTo`. Podanie jej wprost do `router.push` otwiera klasyczna
+dziure: `?returnTo=https://evil.example` przenosi swiezo zalogowana osobe na
+obca strone, w momencie najwyzszego zaufania.
+
+Pierwsza poprawka sprawdzala prefiks (`zaczyna sie od "/" i nie od "//"`) i byla
+za slaba. Zapis z backslashem po ukosniku parser URL-i normalizuje do postaci
+protokolowo-wzglednej, wiec przechodzil przez to sito i konczyl na obcym hoscie.
+
+`resolveSafeRedirect` w `src/lib/safe-redirect.ts` parsuje wartosc przez
+`new URL` wzgledem biezacego originu, porownuje origin i zwraca wylacznie
+`pathname + search`, a przy jakimkolwiek odrzuceniu `/zgloszenia`. Porownanie
+kanonicznego originu zamiast ksztaltu tekstu zamyka cala klase obejsc naraz:
+backslashe, wielokrotne ukosniki, znaki sterujace, `userinfo` w rodzaju
+`https://kosmos.app@evil.example`, hosty-podszywki i schematy o pustym originie.
+Kazdy z tych wektorow ma swoj test.

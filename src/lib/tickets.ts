@@ -3,11 +3,23 @@ import { isAdmin, type SessionUser } from "@/lib/permissions";
 import type { Prisma, Status } from "@/generated/prisma/client";
 import type { Filters } from "@/lib/validation";
 
+// Jedyne miejsce, gdzie powstaje warunek "tylko wlasny autor". Prisma
+// traktuje { authorId: undefined } jako brak filtra, nie jako "nic nie
+// pasuje", wiec brakujace id dla non-admina zwrociloby wszystkie zgloszenia
+// zamiast zadnego. JWT zawsze ustawia id, ale to jedyne miejsce
+// odpowiedzialne za widocznosc danych, wiec nie polega na tym, ze callback
+// gdzie indziej zostanie poprawny: rzuca zamiast budowac przepuszczajace zapytanie.
+function authorScope(user: SessionUser): Prisma.TicketWhereInput {
+  if (isAdmin(user)) return {};
+  if (!user.id) throw new Error("Brak identyfikatora uzytkownika w sesji.");
+  return { authorId: user.id };
+}
+
 // Zawezenie do wlasnych zgloszen robi zapytanie, nie filtr na wyniku.
 // Filtrowanie w pamieci oznaczaloby, ze cudze dane i tak opuscilyby baze.
 function scope(user: SessionUser, filters: Filters): Prisma.TicketWhereInput {
   return {
-    ...(isAdmin(user) ? {} : { authorId: user.id }),
+    ...authorScope(user),
     ...(filters.status ? { status: filters.status } : {}),
     ...(filters.priority ? { priority: filters.priority } : {}),
     ...(filters.search
@@ -52,7 +64,7 @@ export async function getTicketByNumber(user: SessionUser, number: number) {
   return prisma.ticket.findFirst({
     where: {
       number,
-      ...(isAdmin(user) ? {} : { authorId: user.id }),
+      ...authorScope(user),
     },
     include: {
       author: { select: { name: true } },

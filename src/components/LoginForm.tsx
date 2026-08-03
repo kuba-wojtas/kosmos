@@ -51,10 +51,10 @@ export function LoginForm() {
       <Input id="email" type="email" autoComplete="email" {...register("email")} />
       <FieldError>{errors.email?.message}</FieldError>
 
-      <label className="mb-1.5 mt-4 block text-xs font-semibold text-muted" htmlFor="haslo">
+      <label className="mb-1.5 mt-4 block text-xs font-semibold text-muted" htmlFor="password">
         Hasło
       </label>
-      <Input id="haslo" type="password" autoComplete="current-password" {...register("password")} />
+      <Input id="password" type="password" autoComplete="current-password" {...register("password")} />
       <FieldError>{errors.password?.message}</FieldError>
 
       {formError && (

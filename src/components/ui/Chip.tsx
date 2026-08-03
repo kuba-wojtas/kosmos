@@ -9,7 +9,7 @@ type Props = {
 
 const stateClasses = {
   inactive: "border-line bg-surface text-muted",
-  active: "border-brand bg-[--color-status-new-bg] text-fg",
+  active: "border-brand bg-status-new-bg text-fg",
 };
 
 // Bez href i bez onClick chip jest dekoracja (span). Z onClick staje sie

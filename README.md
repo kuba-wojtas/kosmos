@@ -11,21 +11,11 @@ admin@kosmos.pl / demo1234
 user@kosmos.pl   / demo1234
 ```
 
-## Zrzuty ekranu
-
-<!-- TODO-DEPLOY: dodać trzy zrzuty ekranu do docs/screenshots/ (ciemny motyw, szerokość 1280 px) i podmienić poniższe odnośniki. -->
-
-![Lista zgłoszeń widziana przez administratora, z filtrami statusu i wyszukiwarką](docs/screenshots/lista-admina.png)
-
-Lista zgłoszeń widziana przez administratora, z filtrami statusu i wyszukiwarką.
-
-![Szczegóły zgłoszenia z historią zmian statusu](docs/screenshots/szczegoly-zgloszenia.png)
-
-Szczegóły zgłoszenia z historią zmian statusu.
-
-![Formularz nowego zgłoszenia](docs/screenshots/nowe-zgloszenie.png)
-
-Formularz nowego zgłoszenia.
+<!-- TODO-DEPLOY: po wdrożeniu dodać sekcję "Zrzuty ekranu" z trzema obrazkami
+     w docs/screenshots/ (ciemny motyw, szerokość 1280 px): lista widziana przez
+     administratora z filtrami, szczegóły zgłoszenia z historią, formularz nowego
+     zgłoszenia. Do tego czasu sekcji nie ma, żeby README nie pokazywał
+     zepsutych odnośników. -->
 
 ## Funkcje
 
@@ -152,6 +142,19 @@ Pełny dziennik w `DECISIONS.md`. Kilka najciekawszych:
   każdą stronę.
 - **Paginacja listy zgłoszeń.** Przy 15 zgłoszeniach z seeda i skali tego
   zadania niepotrzebna. Lista rośnie liniowo z `findMany` bez `take`/`skip`.
+- **Wyrównanie czasu odpowiedzi logowania.** Przy nieznanym adresie kod wraca
+  przed porównaniem hasła, więc odpowiedź przychodzi zauważalnie szybciej niż
+  przy istniejącym koncie i da się z tego wyczytać, czy konto istnieje. Sam
+  komunikat jest identyczny w obu przypadkach. Realnym zabezpieczeniem jest tu
+  rate limiting, a nie porównywanie z atrapą hasha, więc oba pominięte razem.
+- **Blokada równoczesnych zmian statusu.** Dwóch administratorów zmieniających
+  status tego samego zgłoszenia w tej samej chwili może zapisać w historii
+  `from`, które nie odpowiada faktycznemu stanowi poprzedniemu. Sam zapis jest
+  atomowy (update i wpis do historii w jednej transakcji), brakuje tylko
+  optymistycznej blokady, która przy jednym adminie nie ma zastosowania.
+- **Weryfikacja certyfikatu bazy.** Połączenie idzie z `sslmode=require`, czyli
+  szyfruje, ale nie sprawdza certyfikatu serwera. To ciąg, który Neon wydaje
+  w panelu; zaostrzenie do `verify-full` wymaga dowiezienia certyfikatu CA.
 
 ## Wdrożenie
 

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import type { Status } from "@/generated/prisma/client";
 import { Button } from "@/components/ui/Button";
+import { Select } from "@/components/ui/Select";
 import { updateTicketStatus } from "@/actions/tickets";
 import { ALL_STATUSES, STATUS_LABELS } from "@/lib/labels";
 
@@ -39,18 +40,17 @@ export function StatusChanger({ number, status }: Props) {
       <label className="mb-1.5 block text-xs font-semibold text-muted" htmlFor="status">
         Zmień status
       </label>
-      <select
+      <Select
         id="status"
         value={selected}
         onChange={(event) => setSelected(event.target.value as Status)}
-        className="w-full rounded-lg border border-field bg-bg px-3.5 py-2.5 text-sm text-fg"
       >
         {ALL_STATUSES.map((value) => (
           <option key={value} value={value}>
             {STATUS_LABELS[value]}
           </option>
         ))}
-      </select>
+      </Select>
 
       <Button
         type="button"

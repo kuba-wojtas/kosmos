@@ -3,7 +3,7 @@ import { z } from "zod";
 import { filtersSchema, newTicketSchema, registerSchema } from "./validation";
 
 describe("registerSchema", () => {
-  it("przyjmuje valid data i normalizuje e-mail", () => {
+  it("przyjmuje poprawne dane i normalizuje e-mail", () => {
     const result = registerSchema.safeParse({
       name: "  Anna Kowalska  ",
       email: "  Anna.Kowalska@Kosmos.PL ",
@@ -42,7 +42,7 @@ describe("newTicketSchema", () => {
     priority: "HIGH",
   };
 
-  it("przyjmuje valid ticket", () => {
+  it("przyjmuje poprawne zgloszenie", () => {
     expect(newTicketSchema.safeParse(valid).success).toBe(true);
   });
 
