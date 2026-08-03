@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { canViewTicket, isAdmin } from "@/lib/permissions";
+import { canChangeStatus, canViewTicket, isAdmin } from "@/lib/permissions";
 import { getTicketByNumber } from "@/lib/tickets";
 import { requireSession } from "@/lib/session";
 import { PriorityMark } from "@/components/ui/PriorityMark";
 import { StatusBadge } from "@/components/ui/StatusBadge";
+import { StatusChanger } from "@/components/StatusChanger";
 import { StatusHistory } from "@/components/StatusHistory";
 
 const dateFormat = new Intl.DateTimeFormat("pl-PL");
@@ -54,6 +55,12 @@ export default async function TicketDetails({ params }: Props) {
         </div>
 
         <div className="flex flex-col gap-4">
+          {canChangeStatus(user) && (
+            <div className="rounded-xl border border-line bg-surface p-6">
+              <StatusChanger number={ticket.number} status={ticket.status} />
+            </div>
+          )}
+
           <div className="rounded-xl border border-line bg-surface p-6">
             <h2 className="mb-4 text-xs font-semibold uppercase tracking-wider text-muted">
               Historia zmian
