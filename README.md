@@ -35,6 +35,8 @@ Formularz nowego zgłoszenia. Ten sam schemat Zod waliduje dane w przeglądarce
 i ponownie na serwerze, bo walidacja po stronie klienta to wygoda, a nie
 zabezpieczenie.
 
+(Identyfikacja wizualna opisana jest szczegółowo w `STYLE_GUIDE.md`)
+
 ## Funkcje
 
 - rejestracja i logowanie (Auth.js, Credentials Provider, hasła hashowane bcryptem)
