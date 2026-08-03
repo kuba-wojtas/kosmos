@@ -170,3 +170,8 @@ Spec został poprawiony.
 - **Priorytet ustawia autor przy tworzeniu i potem jest niezmienny.** Admin
   triażuje statusem. Zmiana priorytetu wymagałaby drugiej tabeli audytu albo
   świadomej niespójności, a o to nikt nie prosił.
+- **`src/app/styleguide` zostaje, mimo że nic do niego nie linkuje.** To
+  żywy podgląd prymitywów UI (`Button`, `Input`, `StatusBadge`, `Chip`...),
+  przydatny przy dalszej pracy nad interfejsem. Nie jest martwym kodem
+  w sensie "nieużywany import", tylko route'em bez wejścia z nawigacji, więc
+  świadomie go nie usuwam.

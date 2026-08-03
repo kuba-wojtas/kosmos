@@ -18,8 +18,13 @@ export default async function TicketDetails({ params }: Props) {
   const { number } = await params;
   const user = await requireSession();
 
+  // Gorna granica to zasieg Postgresowego Int: Ticket.number nigdy nie
+  // przekroczy 2147483647, wiec wieksza wartosc od razu jest nieznaleziona,
+  // zamiast lecec do bazy i wywalac sie na przekroczeniu zakresu.
   const ticketNumber = Number(number);
-  if (!Number.isInteger(ticketNumber) || ticketNumber <= 0) notFound();
+  if (!Number.isInteger(ticketNumber) || ticketNumber <= 0 || ticketNumber > 2147483647) {
+    notFound();
+  }
 
   // Zapytanie juz zawezilo zakres do roli, wiec cudze zgloszenie przychodzi
   // jako null. canViewTicket zostaje jako druga bramka: gdyby ktos kiedys
