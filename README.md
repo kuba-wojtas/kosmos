@@ -168,6 +168,8 @@ Pełny dziennik decyzji podejmowanych przed i w trakcie pracy nad projektem znaj
   opisowi na stronie Fontshare, pobrane pliki TTF i przeczytana tablica
   `cmap` skryptem. Sporo ładnych zachodnich krojów kończy się na Latin
   Basic i polskie "ą", "ę", "ź" trafiają na zastępczy glif.
+- Jest wersja mobilna strony (na telefon), dałoby się ją jeszcze doszlifować (różne rozdzielczości/testy na rozdzielczościach tabletowych, animacje)
+  ale do zadania rekrutacyjnego trochę overkill.
 
 ## Czego świadomie nie ma
 
