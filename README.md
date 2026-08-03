@@ -53,6 +53,34 @@ Ponad wymagania zadania: historia zmian statusu jako osobna tabela audytowa,
 priorytety zgłoszeń, filtry i wyszukiwanie trzymane w adresie URL (działa
 back/forward, link da się wysłać dalej), konta demo zasiane od razu.
 
+## Uwierzytelnianie i autoryzacja
+
+- Auth.js v5, Credentials Provider, sesja w podpisanym JWT z rolą w tokenie
+- hasła hashowane bcryptem (koszt 12)
+- logowanie zwraca ten sam komunikat przy złym haśle i przy nieznanym koncie
+- rejestracja zakłada wyłącznie konto `USER`, schemat nie ma pola `role`
+- cała logika ról w `src/lib/permissions.ts`, nigdzie indziej w `src/` nie ma porównania roli
+- middleware pilnuje tylko istnienia sesji, o dostępie do zgłoszenia decyduje `canViewTicket`
+- zawężenie do własnych zgłoszeń w zapytaniu do bazy, nie filtrem na wyniku
+- cudze zgłoszenie zwraca 404, nie 403, żeby nie dało się przeklikać numerów
+- uprawnienia sprawdzane w Server Action, nie tylko przez ukrycie przycisku
+
+## Walidacja
+
+- Zod 4, ten sam schemat na kliencie (react-hook-form) i ponownie na serwerze
+- kolejność w każdej mutacji: walidacja, uprawnienia, dopiero baza
+- `registerSchema`, `loginSchema`, `newTicketSchema`, `statusChangeSchema`, `filtersSchema`
+- `filtersSchema` nigdy nie rzuca, śmieci w adresie degradują się do braku filtra
+- błędy pól wracają przez `z.flattenError` i lądują pod właściwym polem
+
+## Obsługa błędów
+
+- Server Actions zwracają `ActionResult`, nigdy nie rzucają w stronę interfejsu
+- każde zapytanie do bazy w `try/catch`, duplikat e-maila po kodzie `P2002`
+- komunikaty ogólne, bez treści wyjątku (zawiera nazwy kolumn i fragmenty zapytań)
+- `error.tsx` i `not-found.tsx` globalnie, osobny 404 dla zgłoszeń
+- numer spoza zakresu `Int` odpada przed zapytaniem do bazy
+
 ## Stack
 
 - Next.js 16, App Router - routing plikowy i Server Actions bez osobnej warstwy API
