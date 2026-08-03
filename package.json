@@ -9,6 +9,7 @@
     "lint": "eslint",
     "fonts": "node scripts/download-fonts.mjs",
     "postinstall": "prisma generate",
+    "seed": "prisma db seed",
     "test": "vitest run",
     "test:watch": "vitest"
   },
