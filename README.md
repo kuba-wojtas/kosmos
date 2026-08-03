@@ -11,11 +11,29 @@ admin@kosmos.pl / demo1234
 user@kosmos.pl   / demo1234
 ```
 
-<!-- TODO-DEPLOY: po wdrożeniu dodać sekcję "Zrzuty ekranu" z trzema obrazkami
-     w docs/screenshots/ (ciemny motyw, szerokość 1280 px): lista widziana przez
-     administratora z filtrami, szczegóły zgłoszenia z historią, formularz nowego
-     zgłoszenia. Do tego czasu sekcji nie ma, żeby README nie pokazywał
-     zepsutych odnośników. -->
+## Zrzuty ekranu
+
+![Lista wszystkich zgłoszeń w widoku administratora](docs/screenshots/wszystkie_zgloszenia.jpg)
+
+Widok administratora. Liczniki przy statusach są jednocześnie filtrami, a po
+kliknięciu jednego z nich pozostałe dalej pokazują swoje wartości, więc zawsze
+widać, dokąd można przejść dalej. Filtry siedzą w adresie, więc taki widok da
+się wysłać linkiem. Priorytet ma własną skalę z kreską rosnącą razem z wagą,
+żeby dało się go odczytać także bez rozróżniania kolorów.
+
+![Panel zmiany statusu i historia zmian](docs/screenshots/historia_zgloszen.jpg)
+
+Panel zmiany statusu widzi wyłącznie administrator, a każda zmiana zapisuje się
+w historii razem z autorem i czasem. Przycisk jest nieaktywny, gdy wybrany status
+równa się obecnemu, bo zapis bez zmiany zaśmiecałby historię. Ostatni wpis,
+"Zgłoszenie utworzone", wyliczany jest z daty utworzenia, a nie trzymany
+w tabeli zmian: utworzenie zgłoszenia nie jest zmianą statusu.
+
+![Formularz nowego zgłoszenia](docs/screenshots/nowe_zgloszenie.jpg)
+
+Formularz nowego zgłoszenia. Ten sam schemat Zod waliduje dane w przeglądarce
+i ponownie na serwerze, bo walidacja po stronie klienta to wygoda, a nie
+zabezpieczenie.
 
 ## Funkcje
 
