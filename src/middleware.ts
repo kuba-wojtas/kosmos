@@ -11,7 +11,7 @@ const { auth } = NextAuth(authConfig);
 export default auth((req) => {
   if (!req.auth) {
     const cel = new URL("/logowanie", req.nextUrl.origin);
-    cel.searchParams.set("returnTo", req.nextUrl.pathname);
+    cel.searchParams.set("returnTo", req.nextUrl.pathname + req.nextUrl.search);
     return Response.redirect(cel);
   }
 });

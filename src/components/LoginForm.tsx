@@ -8,6 +8,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { FieldError } from "@/components/ui/FieldError";
 import { Input } from "@/components/ui/Input";
+import { resolveSafeRedirect } from "@/lib/safe-redirect";
 import { loginSchema } from "@/lib/validation";
 import type { z } from "zod";
 
@@ -15,7 +16,7 @@ type LoginData = z.infer<typeof loginSchema>;
 
 export function LoginForm() {
   const router = useRouter();
-  const returnTo = useSearchParams().get("returnTo");
+  const rawReturnTo = useSearchParams().get("returnTo");
   const [formError, setFormError] = useState<string | null>(null);
 
   const {
@@ -35,7 +36,10 @@ export function LoginForm() {
       return;
     }
 
-    router.push(returnTo ?? "/zgloszenia");
+    // Origin pobrany dopiero tutaj, nie na gorze komponentu: "window" nie
+    // istnieje przy renderze serwerowym, a ta funkcja uruchamia sie wylacznie
+    // po interakcji uzytkownika w przegladarce.
+    router.push(resolveSafeRedirect(rawReturnTo, window.location.origin));
     router.refresh();
   }
 
