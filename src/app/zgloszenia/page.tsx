@@ -1,0 +1,45 @@
+import Link from "next/link";
+import { requireSession } from "@/lib/session";
+import { getTickets } from "@/lib/tickets";
+import { isAdmin } from "@/lib/permissions";
+import { filtersSchema } from "@/lib/validation";
+import { TicketList } from "@/components/TicketList";
+
+type Props = {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+};
+
+export default async function ZgloszeniaPage({ searchParams }: Props) {
+  const user = await requireSession();
+  const admin = isAdmin(user);
+  const filters = filtersSchema.parse(await searchParams);
+
+  const tickets = await getTickets(user, filters);
+
+  return (
+    <div>
+      <div className="flex items-center justify-between gap-4">
+        <div>
+          <h1 className="font-display text-3xl font-extrabold text-fg">
+            {admin ? "Wszystkie zgłoszenia" : "Moje zgłoszenia"}
+          </h1>
+          <p className="mt-1 text-sm text-muted">
+            {admin
+              ? "Przeglądaj zgłoszenia wszystkich użytkowników i zmieniaj ich status."
+              : "Zgłoszenia, które utworzyłeś, wraz z ich aktualnym statusem."}
+          </p>
+        </div>
+        <Link
+          href="/zgloszenia/nowe"
+          className="rounded-lg bg-brand px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-hover"
+        >
+          Nowe zgłoszenie
+        </Link>
+      </div>
+
+      <div className="mt-6">
+        <TicketList tickets={tickets} showAuthor={admin} />
+      </div>
+    </div>
+  );
+}
