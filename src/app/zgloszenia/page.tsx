@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { requireSession } from "@/lib/session";
-import { getTickets } from "@/lib/tickets";
+import { getStatusCounts, getTickets } from "@/lib/tickets";
 import { isAdmin } from "@/lib/permissions";
 import { filtersSchema } from "@/lib/validation";
 import { TicketList } from "@/components/TicketList";
+import { TicketFilters } from "@/components/TicketFilters";
 
 type Props = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
@@ -14,7 +15,10 @@ export default async function ZgloszeniaPage({ searchParams }: Props) {
   const admin = isAdmin(user);
   const filters = filtersSchema.parse(await searchParams);
 
-  const tickets = await getTickets(user, filters);
+  const [tickets, counts] = await Promise.all([
+    getTickets(user, filters),
+    getStatusCounts(user, filters),
+  ]);
 
   return (
     <div>
@@ -38,6 +42,10 @@ export default async function ZgloszeniaPage({ searchParams }: Props) {
       </div>
 
       <div className="mt-6">
+        <TicketFilters counts={counts} showSearch={admin} />
+      </div>
+
+      <div className="mt-4">
         <TicketList tickets={tickets} showAuthor={admin} />
       </div>
     </div>
