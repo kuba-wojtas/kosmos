@@ -21,18 +21,23 @@ export async function registerUser(data: unknown): Promise<ActionResult> {
 
   const { name, email, password } = result.data;
 
-  const existing = await prisma.user.findUnique({ where: { email } });
-  if (existing) {
-    // Przy logowaniu nie zdradzamy, czy konto istnieje. Tutaj musimy, bo inaczej
-    // formularz rejestracji przestaje dzialac po ludzku. Swiadomy kompromis.
-    return {
-      ok: false,
-      error: DUPLICATE_EMAIL_ERROR,
-      fieldErrors: { email: [DUPLICATE_EMAIL_ERROR] },
-    };
-  }
-
+  // Jeden blok obejmujacy odczyt i zapis: oba to wywolania do bazy, oba moga
+  // odrzucic obietnice z powodow infrastrukturalnych (cold start Neona,
+  // wyczerpana pula polaczen, chwilowy blad sieci), nie tylko z powodu
+  // konfliktu danych. Akcja serwerowa nie moze rzucic w strone UI w zadnym
+  // z tych przypadkow.
   try {
+    const existing = await prisma.user.findUnique({ where: { email } });
+    if (existing) {
+      // Przy logowaniu nie zdradzamy, czy konto istnieje. Tutaj musimy, bo inaczej
+      // formularz rejestracji przestaje dzialac po ludzku. Swiadomy kompromis.
+      return {
+        ok: false,
+        error: DUPLICATE_EMAIL_ERROR,
+        fieldErrors: { email: [DUPLICATE_EMAIL_ERROR] },
+      };
+    }
+
     // Rola zawsze USER. Nie ma zadnej sciezki w aplikacji podnoszacej uprawnienia.
     await prisma.user.create({
       data: { name, email, passwordHash: await bcrypt.hash(password, 12) },
