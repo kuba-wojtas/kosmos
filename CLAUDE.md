@@ -55,7 +55,7 @@ definicji typów ręcznie, korzystaj z wygenerowanych typów Prisma.
 - Routing: kebab-case
 - Pliki testów: `*.test.ts` obok testowanego modułu
 
-## Kolejność budowy (dla Ciebie, żebyś nie gubił kontekstu między sesjami)
+## Kolejność budowy (żebyś nie gubić kontekstu między sesjami)
 1. Scaffold Next.js + Tailwind + Prisma, połączenie z Neon
 2. Schema Prisma + migracja + seed (admin, 2 userów, kilka zgłoszeń)
 3. Auth.js: rejestracja, logowanie, middleware, sesja z rolą w tokenie

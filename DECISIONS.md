@@ -1,7 +1,7 @@
 # Dziennik decyzji
 
 Krótki zapis tego, co i dlaczego zostało wybrane. Jedna decyzja to jeden wpis.
-Jeśli coś odrzuciłem, notuję powód, żeby za miesiąc nie wracać do tego samego
+Jeśli coś odrzuciłem, notuję powód, żeby w przyszłości nie wracać do tego samego
 pomysłu i nie odkrywać problemu drugi raz.
 
 ---
@@ -11,11 +11,10 @@ pomysłu i nie odkrywać problemu drugi raz.
 Neon daje darmowego Postgresa, Vercel deployuje Next.js bez konfiguracji.
 
 **Odrzucone:** Supabase (dokłada warstwę auth i storage, których i tak nie
-używamy), VPS z Dockerem (najlepiej trafiałby w ofertę, ale to zadanie
-rekrutacyjne, ma pokazać że stack się spina, a nie generować koszt i robotę
-przy utrzymaniu serwera).
+używamy), VPS z Dockerem (najlepiej trafiałby w projekt, ale to zadanie
+rekrutacyjne - przerost formy w tym przypadku).
 
-## 2. Zakres ponad wymagania
+## 2. Zakres rzeczy zrobionych ponad wymagania
 
 Wchodzą cztery rzeczy, wszystkie tanie w implementacji i widoczne od razu:
 
@@ -39,30 +38,19 @@ projekt też. Nazwy techniczne (enumy Prismy, typy) zostają angielskie, bo
 mieszanie `status: NOWE` z `createdAt` wyglądałoby gorzej niż konsekwentnie
 angielskie identyfikatory.
 
-## 4. Styl pisania: bez manier AI
 
-Żadnych em-dashy ani en-dashy, tylko zwykły dywiz. Do tego bez pogrubiania co
-drugiego wyrażenia, bez emoji w kodzie i commitach, bez podsumowań powtarzających
-to, co przed chwilą napisane. Dotyczy kodu, komentarzy, README i tekstów
-w interfejsie. Projekt ma wyglądać na napisany przez człowieka, bo taki jest sens
-rozmowy rekrutacyjnej o tym, jak korzystałem z AI.
+## 4. Paleta: wyciągnięta ze szkolakosmos.pl
 
-## 5. Paleta: wyciągnięta ze szkolakosmos.pl
-
-Zamiast dobierać kolory z coolors.co, zescrapowałem CSS ich strony
-(`zn_dynamic.css`, plik z ustawieniami motywu). Kolor marki to `#6165B2`,
-stonowane indygo, 27 wystąpień. Do tego `#4E518E` na hover, `#AEADFF` jasny
-barwinek, `#CCCEE9` i `#B9BBD1` lawendowe szarości, `#CD2122` czerwień.
+Zamiast samemu tworzyć identyfikacje od nowa i dobierać kolory, zescrapowałem CSS waszej strony (`zn_dynamic.css`, plik z ustawieniami motywu). Kolor marki to `#6165B2`,
+indygo. Do tego `#4E518E` na hover, `#AEADFF` jasny, `#CCCEE9` i `#B9BBD1` fioletowe/szarości.
 
 Aplikacja idzie w dark mode, więc paleta wymagała przesunięcia:
 
 - tło `#08070C` zamiast ich `#040201`, bo czysta czerń męczy oczy i zabija
-  cienie; lekki odcień indygo wiąże tło z marką
+  cienie;
 - `#6165B2` zostaje kolorem akcji: przyciski, linki, aktywna nawigacja
-- statusy dostają własne barwy, żeby nie zlewać się z marką: barwinek `#AEADFF`
-  (nowe), bursztyn `#E8B04B` (w trakcie), zieleń `#4FC98C` (rozwiązane)
-- `#CD2122` idzie na wysoki priorytet, nie na markę; czerwień w interfejsie
-  powinna znaczyć "pilne", a nie "nasz logotyp"
+- statusy dostają własne barwy, żeby nie zlewać się z marką: `#AEADFF`, `#E8B04B` (w trakcie), `#4FC98C` (rozwiązane)
+- `#CD2122` idzie na wysoki priorytet
 
 ### Status kontra priorytet
 
@@ -93,12 +81,11 @@ rozjechały się na dwa tokeny:
 ## 6. Fonty: Cabinet Grotesk (nagłówki) + Switzer (treść)
 
 Oba z [Fontshare](https://www.fontshare.com), darmowe również komercyjnie,
-hostowane u nas przez `next/font/local`, więc zero requestów do zewnętrznego
+hostowane przez `next/font/local`, więc zero requestów do zewnętrznego
 CDN-a w produkcji.
 
-**Dlaczego nie to, co jest na ich stronie:** Space Grotesk i Poppins. Space
-Grotesk jest w porządku, ale Poppins przy nim wygląda blado i dokłada drugi plik
-bez zysku.
+**Dlaczego nie to, co jest stronie:** Space Grotesk i Poppins. Space
+Grotesk jest w porządku, ale Poppins przy nim wygląda srednio i dokłada niepotrzebnie drugi plik.
 
 **Dlaczego nie Google Fonts w ogóle:** kroje typu Inter czy Geist są dziś
 domyślnym wyborem wszystkiego i od razu to widać.
@@ -106,26 +93,17 @@ domyślnym wyborem wszystkiego i od razu to widać.
 **Dlaczego nie płatne:** repo ma być publiczne, a licencje komercyjne (PP Neue
 Montreal, Söhne, ABC Diatype, Aeonik) zabraniają wrzucania plików fontu do
 publicznego repozytorium. Dałoby się to obejść prywatnym CDN-em albo
-wstrzykiwaniem przy buildzie, ale to komplikacja w deployu bez realnego zysku.
+wstrzykiwaniem przy buildzie, ale to zbędna komplikacja w deployu.
 
-**Sprawdzone przed wyborem:** pobrałem pliki TTF i przeczytałem tablicę `cmap`
-skryptem, zamiast wierzyć opisowi na stronie. Oba kroje mają komplet polskich
-znaków (ąćęłńóśźż plus wersaliki). To nie jest oczywiste, bo sporo ładnych
-zachodnich krojów kończy się na Latin Basic i "Zgłoszenie" rozjeżdża się na
-zastępczym glifie.
+**Sprawdzone przed wyborem:** pobrałem pliki TTF i sprawdziłem tablicę `cmap`. Oba kroje mają komplet polskich znaków (ąćęłńóśźż plus wersaliki). To nie jest oczywiste, bo sporo ładnych zachodnich krojów kończy się na Latin Basic.
 
-**Odrzucone:** Switzer solo (bezbłędny, ale mniej wyrazisty), General Sans
-(najbliżej klimatu strony, przegrał z kontrastem duetu), Satoshi (dobry, ale
-ostatnio jest w co drugim portfolio).
+**Odrzucone:** Switzer solo (super, ale mniej wyrazisty), General Sans
+(najbliżej klimatu strony, ale gorzej wypadł), Satoshi (dobry, ale ostatnio często używany - nudny).
 
 ## 7. Wersje: Next 16, Prisma 7, Zod 4, Auth.js v5 beta
 
-Przed pisaniem planu sprawdziłem realne wersje w rejestrze npm zamiast opierać
-się na tym, co pamiętam. Wyszły trzy rozjazdy z pierwotnymi założeniami.
-
 **Next.js 16 zamiast 15.** 16.2.12 jest stabilny. Używamy zwykłego App Routera
-bez egzotycznych API, więc ryzyko jest minimalne, a projekt nie wygląda na
-wersję wstecz.
+bez egzotycznych API, więc ryzyko jest minimalne.
 
 **Auth.js v5 mimo bety.** Tag `latest` dla `next-auth` to wciąż v4, która nie
 obsługuje App Routera tak, jak potrzebujemy. v5 siedzi w becie od ponad dwóch
@@ -192,16 +170,14 @@ Sprawdzone grepem po zbudowanym bundlu edge: nie ma w nim ani Prismy, ani bcrypt
 Po zalogowaniu wracamy tam, skad uzytkownik przyszedl, a ta sciezka siedzi
 w parametrze `returnTo`. Podanie jej wprost do `router.push` otwiera klasyczna
 dziure: `?returnTo=https://evil.example` przenosi swiezo zalogowana osobe na
-obca strone, w momencie najwyzszego zaufania.
+obca strone.
 
 Pierwsza poprawka sprawdzala prefiks (`zaczyna sie od "/" i nie od "//"`) i byla
-za slaba. Zapis z backslashem po ukosniku parser URL-i normalizuje do postaci
-protokolowo-wzglednej, wiec przechodzil przez to sito i konczyl na obcym hoscie.
+za slaba. Zapis z backslashem po ukosniku parser URL-i normalizuje, wiec przechodzil przez to sito i konczyl na obcym hoscie.
 
 `resolveSafeRedirect` w `src/lib/safe-redirect.ts` parsuje wartosc przez
 `new URL` wzgledem biezacego originu, porownuje origin i zwraca wylacznie
-`pathname + search`, a przy jakimkolwiek odrzuceniu `/zgloszenia`. Porownanie
-kanonicznego originu zamiast ksztaltu tekstu zamyka cala klase obejsc naraz:
+`pathname + search`, a przy jakimkolwiek odrzuceniu `/zgloszenia`. Porownanie originu zamiast ksztaltu tekstu zamyka cala klase obejsc naraz:
 backslashe, wielokrotne ukosniki, znaki sterujace, `userinfo` w rodzaju
 `https://kosmos.app@evil.example`, hosty-podszywki i schematy o pustym originie.
 Kazdy z tych wektorow ma swoj test.

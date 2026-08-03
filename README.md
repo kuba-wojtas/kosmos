@@ -66,7 +66,7 @@ back/forward, link da się wysłać dalej), konta demo zasiane od razu.
 ## Uruchomienie lokalne
 
 ```bash
-git clone <adres repozytorium>
+git clone https://github.com/kuba-wojtas/kosmos
 cd kosmos
 npm install
 cp .env.example .env
@@ -89,7 +89,7 @@ npm run dev
 
 `npm run fonts` pobiera pliki woff2 (Cabinet Grotesk, Switzer) z Fontshare do
 `public/fonts`, potrzebne przed pierwszym buildem. `npm run seed` zakłada
-konta demo i 15 zgłoszeń z historią zmian statusu.
+konta demo i 15 przykładowych zgłoszeń z historią zmian statusu.
 
 Aplikacja rusza pod `http://localhost:3000`.
 
@@ -124,16 +124,12 @@ docs/screenshots/    zrzuty ekranu użyte w README
 
 ## Decyzje projektowe
 
-Pełny dziennik w `DECISIONS.md`. Kilka najciekawszych:
+Pełny dziennik decyzji podejmowanych przed i w trakcie pracy nad projektem znajduje się w `DECISIONS.md`. Kilka przykładowych:
 
 - **404 zamiast 403 na cudzym zgłoszeniu.** Wejście na numer, który nie
   należy do użytkownika, wygląda identycznie jak wejście na numer, który
   nie istnieje. Zawężenie siedzi w zapytaniu do bazy (`getTicketByNumber`),
   nie w filtrze na wyniku, więc cudze dane nigdy nie opuszczają bazy.
-- **Status jako kategoria, priorytet jako skala.** Trzy stany statusu nie
-  mają porządku, więc dostały trzy niezależne barwy jako wypełniony badge.
-  Priorytet rośnie, więc jedna rodzina kolorów o rosnącym natężeniu plus
-  pionowa kreska, która robi się wyższa, czytelna też bez rozróżniania barw.
 - **Paleta wyciągnięta ze szkolakosmos.pl.** Zamiast dobierać kolory z
   generatora, zescrapowany CSS strony klienta dał kolor marki `#6165B2`.
   Reszta palety, w tym barwy statusów, dobrana pod dark mode i sprawdzona
