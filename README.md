@@ -2,7 +2,7 @@
 
 Prosty helpdesk: użytkownicy zakładają konto, zgłaszają problemy i widzą
 tylko swoje. Administrator widzi wszystkie zgłoszenia i zmienia ich status.
-Aplikacja: TODO-DEPLOY
+Aplikacja: https://kosmos-jwojtas.vercel.app
 
 ## Konta demo
 
