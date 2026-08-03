@@ -22,8 +22,16 @@ function scope(user: SessionUser, filters: Filters): Prisma.TicketWhereInput {
     ...authorScope(user),
     ...(filters.status ? { status: filters.status } : {}),
     ...(filters.priority ? { priority: filters.priority } : {}),
+    // Szukanie obejmuje tytul i autora. OR siedzi obok authorScope, wiec Prisma
+    // laczy je przez AND: non-admin dalej widzi wylacznie swoje zgloszenia,
+    // a wyszukiwarka jedynie zaweza ten zbior.
     ...(filters.search
-      ? { title: { contains: filters.search, mode: "insensitive" as const } }
+      ? {
+          OR: [
+            { title: { contains: filters.search, mode: "insensitive" as const } },
+            { author: { name: { contains: filters.search, mode: "insensitive" as const } } },
+          ],
+        }
       : {}),
   };
 }

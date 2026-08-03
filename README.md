@@ -42,7 +42,7 @@ zabezpieczenie.
 - tworzenie zgłoszenia z priorytetem (niski, średni, wysoki)
 - lista zgłoszeń zawężona do właściciela, admin widzi wszystkie
 - filtrowanie po statusie i liczniki zgłoszeń w każdym stanie
-- wyszukiwanie po tytule, dostępne dla admina
+- wyszukiwanie po tytule i po imieniu lub nazwisku autora, dostępne dla admina
 - szczegóły zgłoszenia, dostęp do cudzego zgłoszenia po numerze kończy się 404, nie 403 (patrz `DECISIONS.md`)
 - zmiana statusu przez admina, zapis do transakcji razem z wpisem w historii
 - historia zmian statusu w widoku szczegółów

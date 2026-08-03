@@ -109,7 +109,7 @@ export function TicketFilters({ counts, showSearch }: Props) {
             type="search"
             defaultValue={searchParams.get("search") ?? ""}
             onChange={handleSearchChange}
-            placeholder="Szukaj po tytule..."
+            placeholder="Szukaj po tytule lub autorze..."
             className="max-w-xs"
           />
         )}

@@ -81,7 +81,7 @@ const tickets: SeedTicket[] = [
     number: 1,
     title: "Drukarka w sekretariacie nie drukuje",
     description:
-      "Drukarka HP w sekretariacie zacina papier przy kazdej probie wydruku dokumentow dla rodzicow. Wymiana kartridza nie pomogla.",
+      "Drukarka HP w sekretariacie zacina papier przy każdej próbie wydruku dokumentów dla rodziców. Wymiana kartridża nie pomogła.",
     priority: "HIGH",
     status: "RESOLVED",
     authorEmail: "katarzyna.wisniewska@kosmos.pl",
@@ -89,9 +89,9 @@ const tickets: SeedTicket[] = [
   },
   {
     number: 2,
-    title: "Projektor w sali 14 nie wyswietla obrazu z laptopa",
+    title: "Projektor w sali 14 nie wyświetla obrazu z laptopa",
     description:
-      "Po podlaczeniu kablem HDMI projektor pokazuje tylko niebieski ekran, dzwiek dziala poprawnie. Sprawdzony inny laptop dal ten sam efekt.",
+      "Po podłączeniu kablem HDMI projektor pokazuje tylko niebieski ekran, dźwięk działa poprawnie. Sprawdzony inny laptop dał ten sam efekt.",
     priority: "MEDIUM",
     status: "RESOLVED",
     authorEmail: "marek.zielinski@kosmos.pl",
@@ -99,9 +99,9 @@ const tickets: SeedTicket[] = [
   },
   {
     number: 3,
-    title: "Brak dostepu do Wi-Fi w bibliotece",
+    title: "Brak dostępu do Wi-Fi w bibliotece",
     description:
-      "Od dwoch dni siec szkolna w bibliotece nie jest widoczna na zadnym urzadzeniu, uczniowie nie moga korzystac z czytnikow elektronicznych.",
+      "Od dwóch dni sieć szkolna w bibliotece nie jest widoczna na żadnym urządzeniu, uczniowie nie mogą korzystać z czytników elektronicznych.",
     priority: "HIGH",
     status: "RESOLVED",
     authorEmail: "agnieszka.lewandowska@kosmos.pl",
@@ -109,9 +109,9 @@ const tickets: SeedTicket[] = [
   },
   {
     number: 4,
-    title: "Konto domenowe dla nowego stazysty",
+    title: "Konto domenowe dla nowego stażysty",
     description:
-      "Od poniedzialku zaczyna prace stazysta w dziale kadr, potrzebuje konta domenowego z dostepem do dysku wspoldzielonego kadr.",
+      "Od poniedziałku zaczyna pracę stażysta w dziale kadr, potrzebuje konta domenowego z dostępem do dysku współdzielonego kadr.",
     priority: "MEDIUM",
     status: "RESOLVED",
     authorEmail: "admin@kosmos.pl",
@@ -119,9 +119,9 @@ const tickets: SeedTicket[] = [
   },
   {
     number: 5,
-    title: "Prosba o licencje na pakiet biurowy",
+    title: "Prośba o licencję na pakiet biurowy",
     description:
-      "Nowy laptop sluzbowy nie ma zainstalowanego pakietu biurowego, potrzebna licencja do przygotowywania materialow na lekcje.",
+      "Nowy laptop służbowy nie ma zainstalowanego pakietu biurowego, potrzebna licencja do przygotowywania materiałów na lekcje.",
     priority: "LOW",
     status: "RESOLVED",
     authorEmail: "user@kosmos.pl",
@@ -129,9 +129,9 @@ const tickets: SeedTicket[] = [
   },
   {
     number: 6,
-    title: "Nie dziala skaner w pokoju nauczycielskim",
+    title: "Nie działa skaner w pokoju nauczycielskim",
     description:
-      "Skaner podlaczony do komputera w pokoju nauczycielskim przestal byc wykrywany przez system po ostatniej aktualizacji Windows.",
+      "Skaner podłączony do komputera w pokoju nauczycielskim przestał być wykrywany przez system po ostatniej aktualizacji Windows.",
     priority: "MEDIUM",
     status: "RESOLVED",
     authorEmail: "katarzyna.wisniewska@kosmos.pl",
@@ -141,7 +141,7 @@ const tickets: SeedTicket[] = [
     number: 7,
     title: "Tablica interaktywna w sali 7 nie reaguje na dotyk",
     description:
-      "Tablica interaktywna reaguje na pisak tylko w gornej czesci ekranu, w dolnej czesci dotyk jest calkowicie ignorowany.",
+      "Tablica interaktywna reaguje na pisak tylko w górnej części ekranu, w dolnej części dotyk jest całkowicie ignorowany.",
     priority: "HIGH",
     status: "RESOLVED",
     authorEmail: "marek.zielinski@kosmos.pl",
@@ -151,7 +151,7 @@ const tickets: SeedTicket[] = [
     number: 8,
     title: "Zablokowane konto w dzienniku elektronicznym",
     description:
-      "Konto w systemie dziennika elektronicznego zostalo zablokowane po kilku nieudanych probach logowania, potrzebny reset dostepu.",
+      "Konto w systemie dziennika elektronicznego zostało zablokowane po kilku nieudanych próbach logowania, potrzebny reset dostępu.",
     priority: "HIGH",
     status: "RESOLVED",
     authorEmail: "agnieszka.lewandowska@kosmos.pl",
@@ -159,9 +159,9 @@ const tickets: SeedTicket[] = [
   },
   {
     number: 9,
-    title: "Wolno dzialajacy komputer w sekretariacie",
+    title: "Wolno działający komputer w sekretariacie",
     description:
-      "Komputer w sekretariacie uruchamia sie kilka minut i mocno zwalnia przy otwieraniu arkuszy kalkulacyjnych z duza iloscia danych.",
+      "Komputer w sekretariacie uruchamia się kilka minut i mocno zwalnia przy otwieraniu arkuszy kalkulacyjnych z dużą ilością danych.",
     priority: "LOW",
     status: "RESOLVED",
     authorEmail: "user@kosmos.pl",
@@ -169,9 +169,9 @@ const tickets: SeedTicket[] = [
   },
   {
     number: 10,
-    title: "Reset hasla do poczty sluzbowej",
+    title: "Reset hasła do poczty służbowej",
     description:
-      "Zapomniane haslo do skrzynki pocztowej uniemozliwia wyslanie wiadomosci do rodzicow przed jutrzejsza wywiadowka.",
+      "Zapomniane hasło do skrzynki pocztowej uniemożliwia wysłanie wiadomości do rodziców przed jutrzejszą wywiadówką.",
     priority: "MEDIUM",
     status: "IN_PROGRESS",
     authorEmail: "user@kosmos.pl",
@@ -181,7 +181,7 @@ const tickets: SeedTicket[] = [
     number: 11,
     title: "Awaria telefonu stacjonarnego w sekretariacie",
     description:
-      "Telefon stacjonarny w sekretariacie nie ma sygnalu, rodzice nie moga sie dodzwonic w sprawie odbioru dzieci ze swietlicy.",
+      "Telefon stacjonarny w sekretariacie nie ma sygnału, rodzice nie mogą się dodzwonić w sprawie odbioru dzieci ze świetlicy.",
     priority: "LOW",
     status: "IN_PROGRESS",
     authorEmail: "marek.zielinski@kosmos.pl",
@@ -191,7 +191,7 @@ const tickets: SeedTicket[] = [
     number: 12,
     title: "Dodatkowy monitor do sali komputerowej",
     description:
-      "Prosba o drugi monitor do stanowiska nauczyciela w sali komputerowej, ulatwi to prezentowanie kodu na lekcjach informatyki.",
+      "Prośba o drugi monitor do stanowiska nauczyciela w sali komputerowej, ułatwi to prezentowanie kodu na lekcjach informatyki.",
     priority: "LOW",
     status: "NEW",
     authorEmail: "admin@kosmos.pl",
@@ -199,9 +199,9 @@ const tickets: SeedTicket[] = [
   },
   {
     number: 13,
-    title: "Nie dzialaja glosniki w sali multimedialnej",
+    title: "Nie działają głośniki w sali multimedialnej",
     description:
-      "Podczas prezentacji filmow edukacyjnych w sali multimedialnej nie ma zadnego dzwieku, mimo poprawnie podlaczonego kabla jack.",
+      "Podczas prezentacji filmów edukacyjnych w sali multimedialnej nie ma żadnego dźwięku, mimo poprawnie podłączonego kabla jack.",
     priority: "MEDIUM",
     status: "NEW",
     authorEmail: "katarzyna.wisniewska@kosmos.pl",
@@ -211,7 +211,7 @@ const tickets: SeedTicket[] = [
     number: 14,
     title: "Aktualizacja antywirusa na laptopach nauczycielskich",
     description:
-      "Licencja programu antywirusowego na laptopach nauczycielskich wygasa w tym miesiacu, potrzebna aktualizacja przed nowym semestrem.",
+      "Licencja programu antywirusowego na laptopach nauczycielskich wygasa w tym miesiącu, potrzebna aktualizacja przed nowym semestrem.",
     priority: "MEDIUM",
     status: "NEW",
     authorEmail: "agnieszka.lewandowska@kosmos.pl",
@@ -219,9 +219,9 @@ const tickets: SeedTicket[] = [
   },
   {
     number: 15,
-    title: "Drukarka sieciowa na drugim pietrze nie widzi komputerow",
+    title: "Drukarka sieciowa na drugim piętrze nie widzi komputerów",
     description:
-      "Drukarka sieciowa na drugim pietrze przestala byc widoczna w sieci, zaden komputer z tego pietra nie moze wysylac na nia wydrukow.",
+      "Drukarka sieciowa na drugim piętrze przestała być widoczna w sieci, żaden komputer z tego piętra nie może wysyłać na nią wydruków.",
     priority: "HIGH",
     status: "NEW",
     authorEmail: "user@kosmos.pl",
